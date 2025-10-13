@@ -1,37 +1,76 @@
 const API_BASE_URL = 'http://localhost:5678/api';
 
-async function loadWorks() {
-    try {
-        const res = await fetch(`${API_BASE_URL}/works`);
-        if (!res.ok) throw new Error('Erreur lors de la récupération des travaux');
-        return await res.json();
-    } catch (error) {
-        console.error(error);
-        return [];
-    }
+async function fetchWorks() {
+  const res = await fetch(`${API_BASE_URL}/works`);
+  return res.json();
 }
 
-function displayWorks(worksList) {
-    const container = document.querySelector('.gallery');
-    container.innerHTML = '';
+async function fetchCategories() {
 
-    worksList.forEach(work => {
-        const figure = document.createElement('figure');
-        const image = document.createElement('img');
-        const legend = document.createElement('figcaption');
+  const res = await fetch(`${API_BASE_URL}/categories`);
+  return res.json();
 
-        image.src = work.imageUrl;
-        image.alt = work.title;
-        legend.textContent = work.title;
+}
 
-        figure.append(image, legend);
-        container.appendChild(figure);
+function renderWorks(list) {
+
+  const gallery = document.querySelector('.gallery');
+  gallery.innerHTML = '';
+
+  list.forEach(w => {
+
+    const fig = document.createElement('figure');
+    const img = document.createElement('img');
+    const cap = document.createElement('figcaption');
+
+    img.src = w.imageUrl;
+    img.alt = w.title;
+    cap.textContent = w.title;
+
+    fig.append(img, cap);
+    gallery.append(fig);
+  });
+}
+
+function renderFilters(categories, works) {
+
+  const bar = document.querySelector('.filtres');
+  if (!bar) return;
+  
+  bar.innerHTML = '';
+
+  const allBtn = document.createElement('button');
+  allBtn.textContent = 'Tous';
+  allBtn.classList.add('active');
+  bar.append(allBtn);
+
+  allBtn.addEventListener('click', () => {
+    renderWorks(works);
+    setActive(allBtn);
+  });
+
+  categories.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.textContent = cat.name;
+    bar.append(btn);
+    btn.addEventListener('click', () => {
+      const filtered = works.filter(w => w.categoryId === cat.id);
+      renderWorks(filtered);
+      setActive(btn);
     });
+  });
 }
 
-async function initGallery() {
-    const works = await loadWorks();
-    displayWorks(works);
+function setActive(btn) {
+  document.querySelectorAll('.filtres button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
 }
 
-initGallery();
+async function init() {
+  const works = await fetchWorks();
+  const categories = await fetchCategories();
+  renderWorks(works);
+  renderFilters(categories, works);
+}
+
+init();
