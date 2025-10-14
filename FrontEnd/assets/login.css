@@ -1,0 +1,129 @@
+body {
+  background-color: #FFFEF8;
+  font-family: 'Work Sans', sans-serif;
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 100px 0 100px;
+}
+
+header h1 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 900;
+  font-size: 26px;
+  color: #B1663C;
+}
+
+header span {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #B1663C;
+  text-transform: uppercase;
+}
+
+nav ul {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+nav a {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 16px;
+  color: #000;
+  text-decoration: none;
+}
+
+nav a.active {
+  font-weight: 700;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.login-section h2 {
+  color: #1D6154;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+  margin-bottom: 30px;
+}
+
+#login-form {
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+  gap: 20px;
+}
+
+#login-form label {
+  text-align: left;
+  font-size: 14px;
+  color: #3D3D3D;
+}
+
+#login-form input {
+  height: 45px;
+  border: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.09);
+  border-radius: 5px;
+  padding: 0 10px;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 16px;
+}
+
+#login-form button {
+  align-self: center;
+  width: 180px;
+  height: 40px;
+  border: none;
+  border-radius: 25px;
+  background-color: #1D6154;
+  color: white;
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+#login-form button:hover {
+  background-color: #0E2F28;
+}
+
+.login-section a {
+  text-decoration: underline;
+  color: #3D3D3D;
+  font-size: 14px;
+}
+
+footer p {
+  color: #3D3D3D;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 14px;
+  padding: 20px 100px;
+}

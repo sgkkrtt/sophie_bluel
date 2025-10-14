@@ -66,6 +66,10 @@ function setActive(btn) {
   btn.classList.add('active');
 }
 
+/*function loginButton(btn) {
+  
+}*/
+
 async function init() {
   const works = await fetchWorks();
   const categories = await fetchCategories();
