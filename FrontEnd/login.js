@@ -19,12 +19,10 @@ form.addEventListener("submit", async (e) => {
 
     if (response.ok) {
       const data = await response.json();
-      localStorage.setItem("token", data.token); // on stocke le token
-      window.location.href = "index.html"; // redirection
+      localStorage.setItem("token", data.token);
+      window.location.href = "index.html";
     } else if (response.status === 401) {
       errorMsg.textContent = "Erreur : identifiant ou mot de passe incorrect.";
-    } else {
-      errorMsg.textContent = "Erreur serveur, réessayez plus tard.";
     }
   } catch (error) {
     console.error(error);
