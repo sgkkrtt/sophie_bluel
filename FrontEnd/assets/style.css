@@ -257,7 +257,7 @@ a {
   justify-content: center;
   align-items: center;
   gap: 20px;
-  width: 80%;
+  width: 100%;
   max-width: 420px;
   margin: auto;
 }
@@ -272,7 +272,7 @@ a {
 
 
 .upload-area {
-  width: 100%;
+  width: 450px;
   height: 170px;
   background: #E8F1F6;
   border-radius: 5px;
@@ -283,7 +283,7 @@ a {
   overflow: hidden;
 }
 .upload-area img {
-  width: 100%;
+  width: 150px;
   height: 100%;
   object-fit: cover;
 }
@@ -313,6 +313,18 @@ a {
 .upload-placeholder p {
   font-size: 10px;
 }
+
+.modal-add-form label {
+  display: block;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1D6154;
+  margin-bottom: 6px;
+  margin-top: 10px;
+  width: 100%;
+}
+
 .modal-add-form input[type="text"],
 .modal-add-form select {
   width: 100%;
@@ -324,6 +336,7 @@ a {
   padding: 10px;
   border-radius: 5px;
 }
+
 .modal-add-form button[type="submit"] {
   width: 240px;
   height: 40px;

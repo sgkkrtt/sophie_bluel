@@ -207,13 +207,27 @@ function renderAddPhotoForm() {
     }
   });
 
+  const labelTitle = document.createElement("label");
+  labelTitle.textContent = "Titre";
+  labelTitle.htmlFor = "title";
+
   const inputTitle = document.createElement("input");
+  inputTitle.id = "title";
   inputTitle.type = "text";
-  inputTitle.placeholder = "Titre";
   inputTitle.required = true;
 
+  const labelCat = document.createElement("label");
+  labelCat.textContent = "Catégorie";
+  labelCat.htmlFor = "category";
+
   const selectCat = document.createElement("select");
+  selectCat.id = "category";
   selectCat.required = true;
+  const defaultOption = document.createElement("option");
+  defaultOption.value = "";
+  defaultOption.textContent = "";
+  selectCat.append(defaultOption);
+
   fetchCategories().then((cats) => {
     cats.forEach((c) => {
       const opt = document.createElement("option");
@@ -231,7 +245,7 @@ function renderAddPhotoForm() {
   submitBtn.type = "submit";
   submitBtn.textContent = "Valider";
 
-  form.append(uploadArea, inputTitle, selectCat, errorMsg, submitBtn);
+  form.append(uploadArea, labelTitle, inputTitle, labelCat, selectCat, errorMsg, submitBtn);
 
   form.addEventListener("input", () => {
     if (inputFile.files.length && inputTitle.value.trim() && selectCat.value) {
@@ -265,14 +279,35 @@ function renderAddPhotoForm() {
     });
 
     if (res.ok) {
+      const newWork = await res.json();
+
+      const mainGallery = document.querySelector(".gallery");
+      const fig = document.createElement("figure");
+      const img = document.createElement("img");
+      const cap = document.createElement("figcaption");
+      img.src = newWork.imageUrl;
+      img.alt = newWork.title;
+      cap.textContent = newWork.title;
+      fig.append(img, cap);
+      mainGallery.append(fig);
+
+      const modalFig = document.createElement("figure");
+      modalFig.dataset.id = newWork.id;
+      const modalImg = document.createElement("img");
+      modalImg.src = newWork.imageUrl;
+      modalImg.alt = newWork.title;
+      const del = document.createElement("i");
+      del.classList.add("fa-solid", "fa-trash-can", "delete-icon");
+      del.addEventListener("click", () => deleteWork(newWork.id));
+      modalFig.append(modalImg, del);
+      modalGallery.append(modalFig);
+
       inputFile.value = "";
       inputTitle.value = "";
       selectCat.value = "";
       submitBtn.classList.remove("active");
       backBtn.remove();
       renderModalGallery();
-      const works = await fetchWorks();
-      renderWorks(works);
     } else {
       errorMsg.textContent = "Erreur lors de l'envoi du formulaire.";
       errorMsg.style.display = "block";
